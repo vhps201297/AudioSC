@@ -35,7 +35,7 @@
             android:id="@+id/btn_freq1"
             android:layout_width="160dp"
             android:layout_height="48dp"
-            android:text="@string/str_freq_1"
+            android:text="bajar frecuencia"
             android:onClick="onClickFreq1"
             android:layout_margin="4dp"
             />
@@ -44,7 +44,7 @@
             android:id="@+id/btn_freq2"
             android:layout_width="160dp"
             android:layout_height="48dp"
-            android:text="@string/str_freq_2"
+            android:text="subir frecuencia"
             android:onClick="onClickFreq2"
             android:layout_margin="4dp"
             />

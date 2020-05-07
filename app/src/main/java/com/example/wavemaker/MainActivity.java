@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private native void newFrecuency(double newFrecuency);
 
     TextView txtCenter;
+    private Double currentFrecuency = 220.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,18 +41,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickSilence(View view) {
-
         touchEventSilence();
+        currentFrecuency = 440.0;
     }
 
     public void onClickFreq1(View view) {
-        txtCenter.setText(R.string.str_freq_1);
-        newFrecuency(440.0);
+
+        txtCenter.setText(currentFrecuency + " [HZ]");
+        if (currentFrecuency > 1200.0 || currentFrecuency < 50)
+            Toast.makeText(this, "Rango "+currentFrecuency+" no permitido", Toast.LENGTH_SHORT).show();
+        else {
+            currentFrecuency -= 100;
+            newFrecuency(currentFrecuency);
+        }
     }
 
     public void onClickFreq2(View view) {
-        txtCenter.setText(R.string.str_freq_2);
-        newFrecuency(1000.0);
+
+        txtCenter.setText(currentFrecuency + " [HZ]");
+        if (currentFrecuency > 1200.0 || currentFrecuency < 50)
+            Toast.makeText(this, "Rango "+currentFrecuency+" no permitido", Toast.LENGTH_SHORT).show();
+        else {
+            currentFrecuency += 100;
+            newFrecuency(currentFrecuency);
+        }
     }
 }
 
