@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">WaveMaker</string>
+    <string name="tap_anywhere">Tap anywhere</string>
+    <string name="str_silence">Silencio</string>
+    <string name="str_freq_1">440 Hz</string>
+    <string name="str_freq_2">660 Hz</string>
+</resources>

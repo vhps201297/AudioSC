@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/touchArea"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.wavemaker.MainActivity">
+
+    <TextView
+        android:id="@+id/txt_center"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tap_anywhere"
+        android:textAppearance="@android:style/TextAppearance.Material.Display1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="20dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        >
+        <Button
+            android:id="@+id/btn_silence"
+            android:layout_width="160dp"
+            android:layout_height="48dp"
+            android:text="@string/str_silence"
+            android:onClick="onClickSilence"
+            android:layout_margin="4dp"
+            />
+
+        <Button
+            android:id="@+id/btn_freq1"
+            android:layout_width="160dp"
+            android:layout_height="48dp"
+            android:text="@string/str_freq_1"
+            android:onClick="onClickFreq1"
+            android:layout_margin="4dp"
+            />
+
+        <Button
+            android:id="@+id/btn_freq2"
+            android:layout_width="160dp"
+            android:layout_height="48dp"
+            android:text="@string/str_freq_2"
+            android:onClick="onClickFreq2"
+            android:layout_margin="4dp"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>
