@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private native void stopEngine();
 
-    private native void startEngineNewFrecuency(double newFrecuency);
+    private native void newFrecuency(double newFrecuency);
 
     TextView txtCenter;
 
@@ -45,12 +45,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickFreq1(View view) {
         txtCenter.setText(R.string.str_freq_1);
-        startEngineNewFrecuency(440.0);
+        newFrecuency(440.0);
     }
 
     public void onClickFreq2(View view) {
         txtCenter.setText(R.string.str_freq_2);
-        startEngineNewFrecuency(1000.0);
+        newFrecuency(1000.0);
     }
 }
 
