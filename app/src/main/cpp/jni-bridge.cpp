@@ -27,6 +27,12 @@ Java_com_example_wavemaker_MainActivity_newFrecuency(JNIEnv *env, jobject /* thi
 }
 
 JNIEXPORT void JNICALL
+Java_com_example_wavemaker_MainActivity_newSignalValue(JNIEnv *env, jobject /* this */, jdouble newFrecuency, jdouble newAmplitud) {
+    audioEngine->setToneOn(true);
+    audioEngine->setNewValues(newFrecuency, newAmplitud);
+}
+
+JNIEXPORT void JNICALL
 Java_com_example_wavemaker_MainActivity_stopEngine(JNIEnv *env, jobject /* this */) {
     audioEngine->stop();
 }

@@ -96,5 +96,10 @@ void AudioEngine::setNewFrecuency(double frecuency) {
     oscillator_.setSampleRate(sampleRate, frecuency);
 }
 
+void AudioEngine::setNewValues(double newFrecuency, double newAmplitud) {
+    int32_t sampleRate = AAudioStream_getSampleRate(stream_);
+    oscillator_.setModifySignal(sampleRate,newFrecuency,newAmplitud);
+}
+
 
 

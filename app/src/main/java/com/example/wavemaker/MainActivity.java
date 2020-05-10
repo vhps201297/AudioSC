@@ -8,30 +8,35 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.wavemaker.graphic.Graphic;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 
+public class MainActivity extends AppCompatActivity {
 
     static {
         System.loadLibrary("native-lib");
     }
-
     private native void touchEventSilence();
-
     private native void startEngine();
-
     private native void stopEngine();
-
     private native void newFrecuency(double newFrecuency);
+    private native void newSignalValue(double newFrecuency, double newAmplitude);
 
-    TextView txtCenter;
+    private TextView txtCenter;
     private Double currentFrecuency = 220.0;
+    private LineChart lineChartGraphic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        txtCenter = findViewById(R.id.txt_center);
+        txtCenter = findViewById(R.id.txt_frecuency);
+        lineChartGraphic = findViewById(R.id.line_chart_audio);
         startEngine(); // se inicializa la biblioteca de oboe
+        createGraphic();
+
     }
 
     @Override
@@ -65,6 +70,14 @@ public class MainActivity extends AppCompatActivity {
             currentFrecuency += 100;
             newFrecuency(currentFrecuency);
         }
+    }
+
+    public void createGraphic(){
+
+        Graphic graphic = new Graphic(lineChartGraphic);
+        graphic.setXAxis(0, 8000);
+        graphic.setYAxis(0, 100);
+
     }
 }
 

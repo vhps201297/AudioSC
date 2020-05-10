@@ -7,12 +7,21 @@
     tools:context="com.example.wavemaker.MainActivity">
 
     <TextView
-        android:id="@+id/txt_center"
-        android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
+        android:id="@+id/txt_frecuency"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/tap_anywhere"
-        android:textAppearance="@android:style/TextAppearance.Material.Display1" />
+        android:layout_marginTop="16dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/line_chart_audio"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/txt_frecuency"
+        android:layout_height="400dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,14 +31,14 @@
         android:orientation="vertical"
         android:gravity="center_horizontal"
         >
+
         <Button
             android:id="@+id/btn_silence"
-            android:layout_width="160dp"
+            android:layout_width="159dp"
             android:layout_height="48dp"
-            android:text="@string/str_silence"
-            android:onClick="onClickSilence"
             android:layout_margin="4dp"
-            />
+            android:onClick="onClickSilence"
+            android:text="@string/str_silence" />
 
         <Button
             android:id="@+id/btn_freq1"

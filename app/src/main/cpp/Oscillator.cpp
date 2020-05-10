@@ -17,6 +17,13 @@ void Oscillator::setSampleRate(int32_t sampleRate, double frecuency) {
     phaseIncrement_ = (TWO_PI * frecuency) / (double) sampleRate;
 }
 
+void Oscillator::setModifySignal(int32_t sampleRate, double frecuency, double amplitude) {
+    this->frecuency = frecuency;
+    this->amplitude = amplitude;
+    phaseIncrement_= (TWO_PI * frecuency) / (double) sampleRate;
+
+}
+
 void Oscillator::setWaveOn(bool isWaveOn) {
     isWaveOn_.store(isWaveOn);
 }
@@ -30,7 +37,7 @@ void Oscillator::render(float *audioData, int32_t numFrames) {
         if (isWaveOn_.load()) {
 
             // Calculates the next sample value for the sine wave.
-            audioData[i] = (float) (sin(phase_) * AMPLITUDE);
+            audioData[i] = (float) (sin(phase_) * amplitude);
 
             // Increments the phase, handling wrap around.
             phase_ += phaseIncrement_;
@@ -42,6 +49,8 @@ void Oscillator::render(float *audioData, int32_t numFrames) {
         }
     }
 }
+
+
 
 
 

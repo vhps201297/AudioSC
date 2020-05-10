@@ -12,6 +12,7 @@ public:
     void setWaveOn(bool isWaveOn);
     void setSampleRate(int32_t sampleRate);
     void setSampleRate(int32_t sampleRate, double frecuency);
+    void setModifySignal(int32_t sampleRate, double frecuency, double amplitude);
     void render(float *audioData, int32_t numFrames);
 
 private:
@@ -19,6 +20,7 @@ private:
     double phase_ = 0.0;
     double phaseIncrement_ = 0.0;
     double frecuency = 220.0;
+    double amplitude = 0.3;
 };
 
 

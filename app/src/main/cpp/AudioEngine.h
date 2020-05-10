@@ -16,11 +16,11 @@ public:
     void restart();
     void setToneOn(bool isToneOn);
     void setNewFrecuency(double frecuency);
+    void setNewValues(double newFrecuency, double newAmplitud);
 
 private:
     Oscillator oscillator_;
     AAudioStream *stream_;
-    double frecuency;
 };
 
 #endif //WAVEMAKER_AUDIOENGINE_H
