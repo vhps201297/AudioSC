@@ -21,7 +21,7 @@
         </activity>
         <activity
             android:theme="@style/AppThemeBlueProject"
-            android:name=".MainActivity">
+            android:name=".TestAudio.MainActivity">
 
         </activity>
     </application>

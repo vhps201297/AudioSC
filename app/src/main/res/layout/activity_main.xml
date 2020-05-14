@@ -4,23 +4,42 @@
     android:id="@+id/touchArea"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.wavemaker.MainActivity">
+    tools:context="com.example.wavemaker.TestAudio.MainActivity">
+
+    <ProgressBar
+        android:id="@+id/progress_audio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="false"
+        android:progress="33"
+        android:max="100"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_marginTop="8dp"
+        />
 
     <TextView
-        android:id="@+id/txt_frecuency"
+        android:id="@+id/txt_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:textAlignment="center"
         android:textSize="24sp"
+        android:layout_below="@+id/progress_audio"
+        android:text="Oido izquierdo"
+        android:textStyle="bold"
         />
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/line_chart_audio"
-        android:layout_marginTop="16dp"
+    <TextView
+        android:id="@+id/txt_freq"
         android:layout_width="match_parent"
-        android:layout_below="@+id/txt_frecuency"
-        android:layout_height="400dp" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_status"
+        android:text="220.0 [HZ]"
+        android:textAlignment="center"
+        style="@style/TextAppearance.AppCompat.Display2"
+        android:layout_marginTop="24dp"
+        />
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginBottom="4dp"
-            android:onClick="onClickSilence"
+            android:onClick="onClickNoPuedeOirse"
             style="@style/Widget.AppCompat.Button.Colored"
             android:text="@string/str_no_puedo_oirlo" />
 
@@ -45,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:text="@string/str_puedo_oirlo"
-            android:onClick="onClickFreq1"
+            android:onClick="onClickPuedeOirse"
             android:layout_marginBottom="4dp"
             style="@style/Widget.AppCompat.Button.Colored"
             />
@@ -55,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:text="@string/str_apenas_puedo_oirlo"
-            android:onClick="onClickFreq2"
+            android:onClick="onClickApenasPuedeOirse"
             android:layout_marginBottom="4dp"
             style="@style/Widget.AppCompat.Button.Colored"
             />

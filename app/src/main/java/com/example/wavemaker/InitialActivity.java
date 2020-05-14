@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.wavemaker.TestAudio.MainActivity;
+
 public class InitialActivity extends AppCompatActivity {
 
     @Override
@@ -20,6 +22,6 @@ public class InitialActivity extends AppCompatActivity {
     }
 
     public void onClickPruebaAudio(View view) {
-        startActivity(new Intent(this,MainActivity.class));
+        startActivity(new Intent(this, MainActivity.class));
     }
 }

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Clase que se tendrá acciones como un interactuador con la biblioteca MPAndroidChart
+ * Clase que tendrá acciones como un interactuador con la biblioteca MPAndroidChart
  */
 public class GraphicInteractor {
 
