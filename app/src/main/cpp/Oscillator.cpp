@@ -4,6 +4,7 @@
 
 #include "Oscillator.h"
 #include <math.h>
+#include <android/log.h>
 
 #define TWO_PI (3.14159 * 2)
 #define AMPLITUDE 0.3
@@ -30,6 +31,7 @@ void Oscillator::setWaveOn(bool isWaveOn) {
 
 void Oscillator::render(float *audioData, int32_t numFrames) {
 
+    __android_log_print(2, "Signal amplitud", "Amplitud: %f", amplitude);
     if (!isWaveOn_.load()) phase_ = 0;
 
     for (int i = 0; i < numFrames; i++) {

@@ -10,7 +10,6 @@
         android:id="@+id/txt_frecuency"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tap_anywhere"
         android:layout_marginTop="16dp"
         android:textAlignment="center"
         android:textSize="24sp"
@@ -34,28 +33,31 @@
 
         <Button
             android:id="@+id/btn_silence"
-            android:layout_width="159dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_margin="4dp"
+            android:layout_marginBottom="4dp"
             android:onClick="onClickSilence"
-            android:text="@string/str_silence" />
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:text="@string/str_no_puedo_oirlo" />
 
         <Button
             android:id="@+id/btn_freq1"
-            android:layout_width="160dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:text="bajar frecuencia"
+            android:text="@string/str_puedo_oirlo"
             android:onClick="onClickFreq1"
-            android:layout_margin="4dp"
+            android:layout_marginBottom="4dp"
+            style="@style/Widget.AppCompat.Button.Colored"
             />
 
         <Button
             android:id="@+id/btn_freq2"
-            android:layout_width="160dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:text="subir frecuencia"
+            android:text="@string/str_apenas_puedo_oirlo"
             android:onClick="onClickFreq2"
-            android:layout_margin="4dp"
+            android:layout_marginBottom="4dp"
+            style="@style/Widget.AppCompat.Button.Colored"
             />
 
     </LinearLayout>

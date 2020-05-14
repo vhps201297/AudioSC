@@ -1,14 +1,22 @@
 <resources>
     <string name="app_name">WaveMaker</string>
-    <string name="tap_anywhere">Tap anywhere</string>
     <string name="str_silence">Silencio</string>
-    <string name="str_no_puedo_oirlo">No puedo oírlo</string>
-    <string name="str_freq_1">440 Hz</string>
-    <string name="str_freq_2">660 Hz</string>
-    <string name="str_prueba_auditiva">Prueba auditiva</string>
+
+    <!-- Menú -->
     <string name="str_rango_auditivo">Rango auditivo</string>
     <string name="str_descripcion_rango_auditivo">Se pone a prueba el oído a tonos en diferentes frecuencias, para determinar el alcance del oido.</string>
     <string name="str_iniciar_prueba">Iniciar prueba</string>
     <string name="str_rango_de_voz">Rango de voz</string>
     <string name="str_leyenda_rango_de_voz">Mediante la grabación de una vocal fuerte y una vocal débil se determina el rango de voz</string>
+
+    <!--Prueba de oido-->
+    <string name="str_no_puedo_oirlo">No puedo oírlo</string>
+    <string name="str_puedo_oirlo">Puedo oírlo</string>
+    <string name="str_apenas_puedo_oirlo">Apenas puedo oírlo</string>
+    <string name="str_freq_1">440 Hz</string>
+    <string name="str_freq_2">660 Hz</string>
+    <string name="str_prueba_auditiva">Prueba auditiva</string>
+
+
+
 </resources>
