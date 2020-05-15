@@ -16,8 +16,15 @@
     <string name="str_freq_1">440 Hz</string>
     <string name="str_freq_2">660 Hz</string>
     <string name="str_prueba_auditiva">Prueba auditiva</string>
-    <string name="str_format_frequency">%1$f [Hz]</string>
-
-
+    <string name="str_format_frequency">%1$s [Hz]</string>
+    <string name="str_baja_frecuencia">Midiendo <big><b>bajas</b></big> frecuencias</string>
+    <string name="str_alta_frecuencia">Midiendo <b>altas</b> frecuencias</string>
+    <string name="str_oido_izquierdo">Oído izquierdo</string>
+    <string name="str_oido_derecho">Oído derecho</string>
+    <string name="str_leyenda_indicación">Oprime el botón que dice Listo cuando creas estar escuchando la %1$s frecuencia.</string>
+    <string name="str_listo">Listo</string>
+    <string name="str_freq_minima">Frecuencia mínima:  %1$s</string>
+    <string name="str_freq_max">Frecuencia máxima:  %1$s</string>
+    <string name="str_aceptar">Aceptar</string>
 
 </resources>

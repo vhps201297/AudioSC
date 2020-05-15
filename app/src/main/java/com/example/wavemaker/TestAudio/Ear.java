@@ -1,6 +1,8 @@
 package com.example.wavemaker.TestAudio;
 
-public class Ear {
+import java.io.Serializable;
+
+public class Ear implements Serializable {
 
     private double maxFrequencyRightEar;
     private double maxFrequencyLeftEar;
@@ -41,7 +43,7 @@ public class Ear {
         this.minFrequencyRightEar = minFrequencyRightEar;
     }
 
-    public double getMinFrequencyLefttEar() {
+    public double getMinFrequencyLeftEar() {
         return minFrequencyLeftEar;
     }
 

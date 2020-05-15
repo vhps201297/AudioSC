@@ -19,7 +19,7 @@ private:
     std::atomic<bool> isWaveOn_{false};
     double phase_ = 0.0;
     double phaseIncrement_ = 0.0;
-    double frecuency = 220.0;
+    double frequency = 220.0;
     double amplitude = 0.3;
 };
 

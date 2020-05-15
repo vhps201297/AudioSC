@@ -90,15 +90,15 @@ void AudioEngine::restart() {
     }
 }
 
-void AudioEngine::setNewFrecuency(double frecuency) {
+void AudioEngine::setNewFrecuency(double frequency) {
     // Retrieves the sample rate of the stream for our oscillator.
     int32_t sampleRate = AAudioStream_getSampleRate(stream_);
-    oscillator_.setSampleRate(sampleRate, frecuency);
+    oscillator_.setSampleRate(sampleRate, frequency);
 }
 
-void AudioEngine::setNewValues(double newFrecuency, double newAmplitud) {
+void AudioEngine::setNewValues(double newFrequency, double newAmplitud) {
     int32_t sampleRate = AAudioStream_getSampleRate(stream_);
-    oscillator_.setModifySignal(sampleRate,newFrecuency,newAmplitud);
+    oscillator_.setModifySignal(sampleRate,newFrequency,newAmplitud);
 }
 
 

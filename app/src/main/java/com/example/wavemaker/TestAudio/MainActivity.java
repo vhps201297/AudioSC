@@ -2,6 +2,8 @@ package com.example.wavemaker.TestAudio;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -19,10 +21,12 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.wavemaker.TestAudio.AudioInteractor.HIGH_FREQUENCY;
 import static com.example.wavemaker.TestAudio.AudioInteractor.LOW_FREQUENCY;
 
 public class MainActivity extends AppCompatActivity implements EarTest.View {
@@ -37,46 +41,33 @@ public class MainActivity extends AppCompatActivity implements EarTest.View {
     private native void newFrecuency(double newFrecuency);
     private native void newSignalValue(double newFrecuency, double newAmplitude);
 
-    private TextView txtStatus;
+    private TextView txtEarStatus, txtFreqStatus, txtIndicacionBtn;
     private TextView txtFreq;
-    private Double currentFrecuency = 220.0;
     private ProgressBar progressBar;
     private EarTest.Presenter presenter;
     public static final int LEFT_EAR = 1;
-    public static final int RIGHT_LEFT = 2;
+    public static final int RIGHT_EAR = 2;
     private int ear = LEFT_EAR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        txtStatus = findViewById(R.id.txt_status);
+        txtEarStatus = findViewById(R.id.txt_ear_status);
+        txtFreqStatus = findViewById(R.id.txt_freq_status);
         txtFreq = findViewById(R.id.txt_freq);
+        txtIndicacionBtn = findViewById(R.id.txt_leyenda_ind);
         progressBar = findViewById(R.id.progress_audio);
         startEngine(); // se inicializa la biblioteca de oboe
         //createGraphic();
-        presenter = new AudioPresenter(this);
-        presenter.initTest();
+        presenter = new AudioPresenter(this); // instancia de presentador
+        presenter.initEarTest(LEFT_EAR);
 
-    }
-
-    @Override
-    protected void onResume() {
-        System.out.println("onResume");
-        super.onResume();
-    }
-
-    @Override
-    public void onDestroy() {
-        System.out.println("....ONDestroy");
-        //stopEngine();
-        super.onDestroy();
     }
 
     @Override
     protected void onPause() {
-        System.out.println("....ONPause");
-
+        System.out.println("....onPause");
         stopEngine();
         super.onPause();
     }
@@ -85,62 +76,37 @@ public class MainActivity extends AppCompatActivity implements EarTest.View {
     protected void onRestart() {
         System.out.println("....onRestart");
 
-        //restartEngine();
-        startEngine();
+        restartEngine();
+        //startEngine();
         presenter.getCurrentFrequency();
         super.onRestart();
     }
 
-    public void onClickNoPuedeOirse(View view) {
-        //touchEventSilence();
-        //currentFrecuency = 440.0;
 
-        presenter.nextFrequency(false);
-    }
-
-    public void onClickApenasPuedeOirse(View view) {
+    public void onClickListo(View view) {
         presenter.nextStatus();
-
     }
 
     public void onClickPuedeOirse(View view) {
-        presenter.nextFrequency(true);
-
-    }
-
-    public void createGraphic(){
-        //GraphicInteractor.init(lineChartGraphic);
-        GraphicInteractor.setXAxis(0, 8500);
-        GraphicInteractor.setYAxis(-50, 100);
-        setInitialData();
-
-    }
-
-    public void setInitialData(){
-        double[] frequencies = {250, 500, 1000, 2000, 4000, 6000, 8000}; // frecuencias a testear
-        //double[] frequencies = {1, 2, 3, 4, 5, 6, 7}; // frecuencias a testear
-        List<Entry> leftEarEntries = new ArrayList<>();
-        List<Entry> rightEarEntries = new ArrayList<>();
-        for (double frequency: frequencies){
-            System.out.println("Frecuencia:"+frequency);
-            leftEarEntries.add(new Entry((float) frequency, (float) (frequency * 0)));
-            rightEarEntries.add(new Entry((float) frequency, (float) (frequency * 0)));
+        if (presenter.getStatusFrequency() == LOW_FREQUENCY){
+            presenter.decreaseFrequency();
+        } else {
+            presenter.increaseFrequency();
         }
-        GraphicInteractor.addDataSet(leftEarEntries,"Oído izquierdo");
-        GraphicInteractor.addDataSet(rightEarEntries, "Oído derecho");
     }
 
+    public void onClickNoPuedeOirse(View view) {
+        if (presenter.getStatusFrequency() == LOW_FREQUENCY)
+            presenter.increaseFrequency();
+        else
+            presenter.decreaseFrequency();
+    }
 
     @Override
     public void setFrequency(double frequency) {
         System.out.println("setFrecuencia:" + frequency);
-        txtFreq.setText(getString(R.string.str_format_frequency, (float)frequency));
+        txtFreq.setText(getString(R.string.str_format_frequency, String.valueOf(frequency)));
         newFrecuency(frequency);
-    }
-
-    @Override
-    public void showRangeFrequency(String minFreq, String maxFreq) {
-
     }
 
     @Override
@@ -149,12 +115,50 @@ public class MainActivity extends AppCompatActivity implements EarTest.View {
     }
 
     @Override
-    public void finishEarTest() {
-        if (ear == LEFT_EAR){
-            ear = RIGHT_LEFT;
+    public void showStatusFrequencies(int statusFreq) {
+        if (statusFreq == LOW_FREQUENCY) {
+            txtFreqStatus.setText(R.string.str_baja_frecuencia);
+            txtIndicacionBtn.setText(getString(R.string.str_leyenda_indicación, "mínima"));
         }else {
-            // mostrar datos
+            txtFreqStatus.setText(R.string.str_alta_frecuencia);
+            txtIndicacionBtn.setText(getString(R.string.str_leyenda_indicación, "máxima"));
         }
+    }
+
+    @Override
+    public void showEarStatus(int earStatus) {
+        if (earStatus == LEFT_EAR)
+            txtEarStatus.setText(getString(R.string.str_oido_izquierdo));
+        else
+            txtEarStatus.setText(getString(R.string.str_oido_derecho));
+    }
+
+    @Override
+    public void showMaxFrequency() {
+
+        new MaterialAlertDialogBuilder(this)
+                .setMessage("Se llegó al punto máximo ")
+                .setPositiveButton("Aceptar", null)
+                .show();
+    }
+
+    @Override
+    public void showMinFrequence() {
+        new MaterialAlertDialogBuilder(this)
+                .setMessage("Se llegó al punto mínimo ")
+                .setPositiveButton("Aceptar", null)
+                .show();
+    }
+
+    @Override
+    public void finishEarTest(Ear left, Ear right) {
+        // mostrar datos
+        txtFreq.setText("Listo");
+        Intent intent = new Intent(this, InfoActivity.class);
+        intent.putExtra("left_ear", left);
+        intent.putExtra("right_ear", right);
+        startActivity(intent);
+        finish();
     }
 
 

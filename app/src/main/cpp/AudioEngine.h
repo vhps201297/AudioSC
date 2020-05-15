@@ -15,8 +15,8 @@ public:
     void stop();
     void restart();
     void setToneOn(bool isToneOn);
-    void setNewFrecuency(double frecuency);
-    void setNewValues(double newFrecuency, double newAmplitud);
+    void setNewFrecuency(double frequency);
+    void setNewValues(double newFrequency, double newAmplitud);
 
 private:
     Oscillator oscillator_;

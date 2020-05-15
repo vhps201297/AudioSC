@@ -10,9 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeBlueProject">
         <activity
-            android:theme="@style/AppThemeBlueProject"
             android:screenOrientation="portrait"
-            android:name=".InitialActivity">
+            android:theme="@style/AppThemeBlueProject"
+            android:name=".TestAudio.InfoActivity" />
+        <activity
+            android:name=".InitialActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeBlueProject">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,10 +24,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:theme="@style/AppThemeBlueProject"
-            android:name=".TestAudio.MainActivity">
-
-        </activity>
+            android:name=".TestAudio.MainActivity"
+            android:theme="@style/AppThemeBlueProject"></activity>
     </application>
 
 </manifest>

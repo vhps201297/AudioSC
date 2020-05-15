@@ -22,4 +22,11 @@
         <item name="colorAccent">@color/blueColorPrimaryDark</item>
     </style>
 
+    <style name="AppThemeBlueProjectMaterial" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/blueColorPrimary</item>
+        <item name="colorPrimaryDark">@color/blueColorPrimaryDark</item>
+        <item name="colorAccent">@color/blueColorPrimaryDark</item>
+    </style>
+
 </resources>

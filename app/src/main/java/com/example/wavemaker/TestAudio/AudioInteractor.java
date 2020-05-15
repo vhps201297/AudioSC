@@ -1,11 +1,14 @@
 package com.example.wavemaker.TestAudio;
 
+import android.util.Log;
+
 import com.example.wavemaker.interfaces.EarTest;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.example.wavemaker.TestAudio.MainActivity.LEFT_EAR;
+import static com.example.wavemaker.TestAudio.MainActivity.RIGHT_EAR;
 
 public class AudioInteractor implements EarTest.Interactor {
 
@@ -37,9 +40,15 @@ public class AudioInteractor implements EarTest.Interactor {
     @Override
     public void increaseFrequency() {
         if(statusFrequencies == LOW_FREQUENCY){
-            currentFrequency += 50;
+            if (currentFrequency <= 200)
+                currentFrequency += 10;
+            else
+                currentFrequency += 50;
         } else{
-            currentFrequency += 200;
+            if (currentFrequency >= 7000)
+                currentFrequency += 200;
+            else
+                currentFrequency += 500;
         }
         presenter.updateFrequency(currentFrequency);
     }
@@ -48,8 +57,17 @@ public class AudioInteractor implements EarTest.Interactor {
     public void decreaseFrequency() {
         if (statusFrequencies == LOW_FREQUENCY){
             currentFrequency -= 50;
+            if (currentFrequency <= 200)
+                currentFrequency -= 10;
+            else
+                currentFrequency -= 50;
         } else {
-            currentFrequency -= 200;
+
+            if (currentFrequency >= 7000)
+                currentFrequency -= 200;
+            else
+                currentFrequency -= 500;
+
         }
         presenter.updateFrequency(currentFrequency);
     }
@@ -64,35 +82,34 @@ public class AudioInteractor implements EarTest.Interactor {
         if(statusFrequencies == LOW_FREQUENCY){
             if (statusEar == LEFT_EAR) {
                 leftEar.setMinFrequencyLefttEar(currentFrequency);
-                presenter.updateStatus(25);
+                presenter.updateTestStatus(25);
             }else {
+                Log.e("WAVEMAKER", "Baja frecuencia en oido derecho:" + currentFrequency);
                 rightEar.setMinFrequencyRightEar(currentFrequency);
-                presenter.updateStatus(50);
+                presenter.updateTestStatus(75);
             }
+            statusFrequencies = HIGH_FREQUENCY;
+            presenter.updateFreqStatus(HIGH_FREQUENCY);
+            currentFrequency = frequencies.get(3);
+            presenter.updateFrequency(currentFrequency);
         }else{
+
             if (statusEar == LEFT_EAR) {
                 leftEar.setMaxFrequencyLeftEar(currentFrequency);
-                presenter.updateStatus(75);
+                statusEar = RIGHT_EAR;
+                statusFrequencies = LOW_FREQUENCY;
+                presenter.updateEarStatus(RIGHT_EAR);
+                presenter.updateFreqStatus(LOW_FREQUENCY);
+                presenter.updateTestStatus(50);
+                presenter.initEarTest(RIGHT_EAR);
             }else {
+                Log.e("WAVEMAKER", "Alta frecuencia en oido derecho:" + currentFrequency);
                 rightEar.setMaxFrequencyRightEar(currentFrequency);
-                presenter.updateStatus(100);
+                presenter.updateTestStatus(100);
+                presenter.finishEarTest(leftEar, rightEar);
             }
-        }
-    }
-
-    @Override
-    public void nextFrequency(boolean isHear) {
-
-        switch (statusFrequencies){
-            case LOW_FREQUENCY:
-                handledLowFrequence(isHear);
-                break;
-            case  HIGH_FREQUENCY:
-                handledHighFrequence(isHear);
-                break;
-            default:
-                presenter.onErrorMessage("Estado no definido");
-                break;
+            currentFrequency = frequencies.get(3);
+            presenter.updateFrequency(currentFrequency);
         }
     }
 
@@ -107,58 +124,16 @@ public class AudioInteractor implements EarTest.Interactor {
     }
 
     @Override
-    public void init() {
+    public void earTestInit(int ear) {
+        statusEar = ear;
         statusFrequencies = LOW_FREQUENCY;
         currentIndexFrequency = 3;
         currentFrequency = frequencies.get(currentIndexFrequency);
+        presenter.updateEarStatus(ear);
+        presenter.updateFreqStatus(statusFrequencies);
+        presenter.updateFrequency(currentFrequency);
+        if (ear == RIGHT_EAR)
+            presenter.updateTestStatus(50);
     }
 
-
-    private void handledLowFrequence(boolean isHear){
-        if( currentIndexFrequency > 2){
-            if(isHear){
-                currentIndexFrequency -= 1;
-                currentFrequency = frequencies.get(currentIndexFrequency);
-            } else {
-                currentFrequency += 200;
-            }
-            presenter.updateFrequency(currentFrequency);
-        } else if(currentIndexFrequency != 1){
-            if (isHear){
-                if(currentFrequency <= frequencies.get(1)){
-                    currentIndexFrequency = INITIAL_HIGH_FREQUENCY;
-                    currentFrequency = frequencies.get(currentFrequency);
-                    statusFrequencies = HIGH_FREQUENCY;
-                } else{
-                    currentFrequency -= 50;
-                }
-            } else{
-                currentFrequency += 50;
-            }
-            presenter.updateFrequency(currentFrequency);
-        }
-    }
-
-    private void handledHighFrequence(boolean isHear){
-        if(statusFrequencies == HIGH_FREQUENCY  && currentIndexFrequency < (frequencies.size() - 1)){
-            if(isHear){
-                currentIndexFrequency += 1;
-                currentFrequency = frequencies.get(currentIndexFrequency);
-            } else {
-                currentFrequency += 200;
-            }
-            presenter.updateFrequency(currentFrequency);
-        } else if(statusFrequencies == HIGH_FREQUENCY && currentFrequency != frequencies.size()){
-            if (isHear){
-                if (currentFrequency >= frequencies.get(7)){
-                    presenter.finishEarTest();
-                } else {
-                    currentFrequency += 200;
-                }
-            } else {
-                currentFrequency -= 200;
-            }
-            presenter.updateFrequency(currentFrequency);
-        }
-    }
 }

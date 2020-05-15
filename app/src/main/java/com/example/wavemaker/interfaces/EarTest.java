@@ -1,12 +1,17 @@
 package com.example.wavemaker.interfaces;
 
+import com.example.wavemaker.TestAudio.Ear;
+
 public interface EarTest {
 
     interface View{
+        void showMaxFrequency();
+        void showMinFrequence();
         void setFrequency(double frequency);
-        void showRangeFrequency(String minFreq, String maxFreq);
         void changeTestStatus(int value);
-        void finishEarTest();
+        void showStatusFrequencies(int statusFreq);
+        void showEarStatus(int earStatus);
+        void finishEarTest(Ear left, Ear right);
     }
 
     interface Interactor{
@@ -14,24 +19,27 @@ public interface EarTest {
         void decreaseFrequency();
         double getCurrentFrequency();
         void checkTestStatus();
-        void nextFrequency(boolean isHear);
         int getStatusFrequency();
         int getEarCurrent();
-        void init();
+        void earTestInit(int ear);
     }
 
     interface Presenter{
-        void increaseFrequency();
-        void decreaseFrequency();
-        void updateFrequency(double frequency);
+
+        // presenter to interactor
         void getCurrentFrequency();
-        void nextFrequency(boolean isHear);
-        void finishEarTest();
-        void onErrorMessage(String error);
-        void initTest();
+        void initEarTest(int ear);
         void nextStatus();
         int getStatusFrequency();
-        int getEarCurrent();
-        void updateStatus(int value);
+        void increaseFrequency();
+        void decreaseFrequency();
+
+        // presenter to view
+        void updateFrequency(double frequency);
+        void finishEarTest(Ear left, Ear right);
+        void onErrorMessage(String error);
+        void updateEarStatus(int value);
+        void updateFreqStatus(int value);
+        void updateTestStatus(int status);
     }
 }

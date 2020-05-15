@@ -11,7 +11,7 @@
 #define FREQUENCY
 
 void Oscillator::setSampleRate(int32_t sampleRate) {
-    phaseIncrement_ = (TWO_PI * frecuency) / (double) sampleRate;
+    phaseIncrement_ = (TWO_PI * frequency) / (double) sampleRate;
 }
 
 void Oscillator::setSampleRate(int32_t sampleRate, double frecuency) {
@@ -19,7 +19,7 @@ void Oscillator::setSampleRate(int32_t sampleRate, double frecuency) {
 }
 
 void Oscillator::setModifySignal(int32_t sampleRate, double frecuency, double amplitude) {
-    this->frecuency = frecuency;
+    this->frequency = frecuency;
     this->amplitude = amplitude;
     phaseIncrement_= (TWO_PI * frecuency) / (double) sampleRate;
 
