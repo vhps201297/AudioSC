@@ -56,18 +56,15 @@ public class AudioInteractor implements EarTest.Interactor {
     @Override
     public void decreaseFrequency() {
         if (statusFrequencies == LOW_FREQUENCY){
-            currentFrequency -= 50;
             if (currentFrequency <= 200)
                 currentFrequency -= 10;
             else
                 currentFrequency -= 50;
         } else {
-
             if (currentFrequency >= 7000)
                 currentFrequency -= 200;
             else
                 currentFrequency -= 500;
-
         }
         presenter.updateFrequency(currentFrequency);
     }

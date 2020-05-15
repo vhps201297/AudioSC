@@ -17,7 +17,7 @@
     <string name="str_freq_2">660 Hz</string>
     <string name="str_prueba_auditiva">Prueba auditiva</string>
     <string name="str_format_frequency">%1$s [Hz]</string>
-    <string name="str_baja_frecuencia">Midiendo <big><b>bajas</b></big> frecuencias</string>
+    <string name="str_baja_frecuencia">Midiendo <b>bajas</b> frecuencias</string>
     <string name="str_alta_frecuencia">Midiendo <b>altas</b> frecuencias</string>
     <string name="str_oido_izquierdo">Oído izquierdo</string>
     <string name="str_oido_derecho">Oído derecho</string>

@@ -37,6 +37,7 @@
         android:layout_below="@+id/txt_ear_status"
         android:textAlignment="center"
         android:layout_marginTop="16dp"
+        android:textSize="16sp"
         />
 
     <TextView
