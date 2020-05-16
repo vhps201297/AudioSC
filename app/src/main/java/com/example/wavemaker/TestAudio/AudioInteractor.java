@@ -31,24 +31,46 @@ public class AudioInteractor implements EarTest.Interactor {
     public static final int HIGH_FREQUENCY = 2;
     private int statusFrequencies = LOW_FREQUENCY, statusEar = LEFT_EAR;
     private static final int INITIAL_HIGH_FREQUENCY = 4; // índice de frecuencias altas
+    public static final int MINIMUM_FREQUENCY = 20;
+    public static final int MAXIMUM_FREQUENCY = 20000;
     private Ear rightEar = new Ear(), leftEar = new Ear();
 
     AudioInteractor(AudioPresenter presenter){
         this.presenter = presenter;
     }
 
+    private void limitValidation(int limit, int diferencia){
+        switch (limit){
+            case MAXIMUM_FREQUENCY:
+                if((currentFrequency+diferencia) > MAXIMUM_FREQUENCY)
+                    presenter.audioWasOverreached(MAXIMUM_FREQUENCY);
+                else
+                    currentFrequency += diferencia;
+                break;
+            case MINIMUM_FREQUENCY:
+                if((currentFrequency-diferencia) < MINIMUM_FREQUENCY)
+                    if (diferencia == 500){
+                        limitValidation(MINIMUM_FREQUENCY, 200);
+                    }else
+                        presenter.audioWasOverreached(MINIMUM_FREQUENCY);
+                else
+                    currentFrequency -= diferencia;
+                break;
+        }
+    }
+
     @Override
     public void increaseFrequency() {
         if(statusFrequencies == LOW_FREQUENCY){
-            if (currentFrequency <= 200)
-                currentFrequency += 10;
+            if (currentFrequency <= 200) //frecuencia casi imperceptible
+                limitValidation(MAXIMUM_FREQUENCY, 10);
             else
-                currentFrequency += 50;
+                limitValidation(MAXIMUM_FREQUENCY, 50);
         } else{
-            if (currentFrequency >= 7000)
-                currentFrequency += 200;
+            if (currentFrequency >= 8000)
+                limitValidation(MAXIMUM_FREQUENCY, 200);
             else
-                currentFrequency += 500;
+                limitValidation(MAXIMUM_FREQUENCY, 500);
         }
         presenter.updateFrequency(currentFrequency);
     }
@@ -57,14 +79,14 @@ public class AudioInteractor implements EarTest.Interactor {
     public void decreaseFrequency() {
         if (statusFrequencies == LOW_FREQUENCY){
             if (currentFrequency <= 200)
-                currentFrequency -= 10;
+                limitValidation(MINIMUM_FREQUENCY, 10);
             else
-                currentFrequency -= 50;
+                limitValidation(MINIMUM_FREQUENCY, 50);
         } else {
             if (currentFrequency >= 7000)
-                currentFrequency -= 200;
+                limitValidation(MINIMUM_FREQUENCY, 200);
             else
-                currentFrequency -= 500;
+                limitValidation(MINIMUM_FREQUENCY, 500);
         }
         presenter.updateFrequency(currentFrequency);
     }

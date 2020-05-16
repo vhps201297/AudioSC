@@ -77,7 +77,7 @@
             android:layout_height="48dp"
             android:layout_marginBottom="4dp"
             android:onClick="onClickNoPuedeOirse"
-            style="@style/Widget.AppCompat.Button.Colored"
+            android:theme="@style/AppTheme.BlueButtonMaterial"
             android:text="@string/str_no_puedo_oirlo" />
 
         <Button
@@ -87,7 +87,7 @@
             android:text="@string/str_puedo_oirlo"
             android:onClick="onClickPuedeOirse"
             android:layout_marginBottom="4dp"
-            style="@style/Widget.AppCompat.Button.Colored"
+            android:theme="@style/AppTheme.BlueButtonMaterial"
             />
 
         <Button
@@ -97,7 +97,7 @@
             android:text="@string/str_listo"
             android:onClick="onClickListo"
             android:layout_marginBottom="4dp"
-            style="@style/Widget.AppCompat.Button.Colored"
+            android:theme="@style/AppTheme.BlueButtonMaterial"
             />
 
     </LinearLayout>

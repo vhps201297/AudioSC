@@ -26,5 +26,7 @@
     <string name="str_freq_minima">Frecuencia mínima:  %1$s</string>
     <string name="str_freq_max">Frecuencia máxima:  %1$s</string>
     <string name="str_aceptar">Aceptar</string>
+    <string name="str_msj_limite_minimo">No se puede disminuir la frecuencia menores a los 20[HZ] que el oído puede escuchar.</string>
+    <string name="str_msj_limite_maximo">No se puede aumentar la frecuencia mayores a los 20000[HZ] que el oído puede escuchar.</string>
 
 </resources>

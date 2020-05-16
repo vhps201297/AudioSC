@@ -8,13 +8,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppThemeProject" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/redColorPrimary</item>
-        <item name="colorPrimaryDark">@color/redColorPrimaryDark</item>
-        <item name="colorAccent">@color/redColorAccent</item>
-    </style>
-
     <style name="AppThemeBlueProject" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/blueColorPrimary</item>
@@ -28,5 +21,10 @@
         <item name="colorPrimaryDark">@color/blueColorPrimaryDark</item>
         <item name="colorAccent">@color/blueColorPrimaryDark</item>
     </style>
+
+    <style name="AppTheme.BlueButtonMaterial" >
+        <item name="colorPrimary">@color/blueColorPrimaryDark</item>
+    </style>
+
 
 </resources>

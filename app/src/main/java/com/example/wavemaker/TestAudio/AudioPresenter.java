@@ -88,5 +88,10 @@ public class AudioPresenter implements EarTest.Presenter {
         viewActivity.changeTestStatus(status);
     }
 
+    @Override
+    public void audioWasOverreached(int limitedReached) {
+        viewActivity.showOverreached(limitedReached);
+    }
+
 
 }

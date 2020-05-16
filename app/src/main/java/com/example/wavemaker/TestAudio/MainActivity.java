@@ -28,6 +28,7 @@ import java.util.List;
 
 import static com.example.wavemaker.TestAudio.AudioInteractor.HIGH_FREQUENCY;
 import static com.example.wavemaker.TestAudio.AudioInteractor.LOW_FREQUENCY;
+import static com.example.wavemaker.TestAudio.AudioInteractor.MINIMUM_FREQUENCY;
 
 public class MainActivity extends AppCompatActivity implements EarTest.View {
 
@@ -134,21 +135,22 @@ public class MainActivity extends AppCompatActivity implements EarTest.View {
     }
 
     @Override
-    public void showMaxFrequency() {
-
-        new MaterialAlertDialogBuilder(this)
-                .setMessage("Se llegó al punto máximo ")
-                .setPositiveButton("Aceptar", null)
-                .show();
+    public void showOverreached(int limitReached) {
+        if (limitReached == MINIMUM_FREQUENCY){
+            new MaterialAlertDialogBuilder(this)
+                    .setTitle(R.string.app_name)
+                    .setMessage(R.string.str_msj_limite_minimo)
+                    .setPositiveButton("Entendido", null)
+                    .show();
+        } else {
+            new MaterialAlertDialogBuilder(this)
+                    .setTitle(R.string.app_name)
+                    .setMessage(R.string.str_msj_limite_maximo)
+                    .setPositiveButton("Entendido",null)
+                    .show();
+        }
     }
 
-    @Override
-    public void showMinFrequence() {
-        new MaterialAlertDialogBuilder(this)
-                .setMessage("Se llegó al punto mínimo ")
-                .setPositiveButton("Aceptar", null)
-                .show();
-    }
 
     @Override
     public void finishEarTest(Ear left, Ear right) {

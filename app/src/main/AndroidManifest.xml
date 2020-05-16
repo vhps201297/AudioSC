@@ -24,8 +24,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".TestAudio.MainActivity"
-            android:theme="@style/AppThemeBlueProject"></activity>
+            android:theme="@style/AppThemeBlueProjectMaterial" />
     </application>
 
 </manifest>

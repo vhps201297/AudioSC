@@ -5,8 +5,7 @@ import com.example.wavemaker.TestAudio.Ear;
 public interface EarTest {
 
     interface View{
-        void showMaxFrequency();
-        void showMinFrequence();
+        void showOverreached(int limitReached);
         void setFrequency(double frequency);
         void changeTestStatus(int value);
         void showStatusFrequencies(int statusFreq);
@@ -41,5 +40,6 @@ public interface EarTest {
         void updateEarStatus(int value);
         void updateFreqStatus(int value);
         void updateTestStatus(int status);
+        void audioWasOverreached(int limitedReached);
     }
 }
