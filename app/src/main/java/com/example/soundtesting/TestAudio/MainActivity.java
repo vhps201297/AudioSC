@@ -1,35 +1,19 @@
-package com.example.wavemaker.TestAudio;
+package com.example.soundtesting.TestAudio;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.wavemaker.R;
-import com.example.wavemaker.graphic.GraphicInteractor;
-import com.example.wavemaker.interfaces.EarTest;
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.example.soundtesting.R;
+import com.example.soundtesting.interfaces.EarTest;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.theme.MaterialComponentsViewInflater;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.example.wavemaker.TestAudio.AudioInteractor.HIGH_FREQUENCY;
-import static com.example.wavemaker.TestAudio.AudioInteractor.LOW_FREQUENCY;
-import static com.example.wavemaker.TestAudio.AudioInteractor.MINIMUM_FREQUENCY;
+import static com.example.soundtesting.TestAudio.AudioInteractor.LOW_FREQUENCY;
+import static com.example.soundtesting.TestAudio.AudioInteractor.MINIMUM_FREQUENCY;
 
 public class MainActivity extends AppCompatActivity implements EarTest.View {
 

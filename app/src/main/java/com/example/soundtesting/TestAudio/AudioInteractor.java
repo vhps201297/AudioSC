@@ -1,14 +1,14 @@
-package com.example.wavemaker.TestAudio;
+package com.example.soundtesting.TestAudio;
 
 import android.util.Log;
 
-import com.example.wavemaker.interfaces.EarTest;
+import com.example.soundtesting.interfaces.EarTest;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.wavemaker.TestAudio.MainActivity.LEFT_EAR;
-import static com.example.wavemaker.TestAudio.MainActivity.RIGHT_EAR;
+import static com.example.soundtesting.TestAudio.MainActivity.LEFT_EAR;
+import static com.example.soundtesting.TestAudio.MainActivity.RIGHT_EAR;
 
 public class AudioInteractor implements EarTest.Interactor {
 

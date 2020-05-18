@@ -1,4 +1,4 @@
-package com.example.wavemaker.fft;
+package com.example.soundtesting.fft;
 
 
 import java.util.Objects;

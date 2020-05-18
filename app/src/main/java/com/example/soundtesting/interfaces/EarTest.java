@@ -1,6 +1,6 @@
-package com.example.wavemaker.interfaces;
+package com.example.soundtesting.interfaces;
 
-import com.example.wavemaker.TestAudio.Ear;
+import com.example.soundtesting.TestAudio.Ear;
 
 public interface EarTest {
 

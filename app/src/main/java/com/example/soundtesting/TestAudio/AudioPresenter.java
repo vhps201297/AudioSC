@@ -1,6 +1,6 @@
-package com.example.wavemaker.TestAudio;
+package com.example.soundtesting.TestAudio;
 
-import com.example.wavemaker.interfaces.EarTest;
+import com.example.soundtesting.interfaces.EarTest;
 
 public class AudioPresenter implements EarTest.Presenter {
 

@@ -1,4 +1,4 @@
-package com.example.wavemaker.fft;
+package com.example.soundtesting.fft;
 
 public class FFT {
 
@@ -53,6 +53,7 @@ public class FFT {
     public double[] getWindow() {
         return window;
     }
+
 
 
     public void fft(double[] x, double[] y)

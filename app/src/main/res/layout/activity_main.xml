@@ -4,7 +4,7 @@
     android:id="@+id/touchArea"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.wavemaker.TestAudio.MainActivity">
+    tools:context="com.example.soundtesting.TestAudio.MainActivity">
 
     <ProgressBar
         android:id="@+id/progress_audio"

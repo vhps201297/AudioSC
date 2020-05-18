@@ -31,22 +31,20 @@ void Oscillator::setWaveOn(bool isWaveOn) {
 
 void Oscillator::render(float *audioData, int32_t numFrames) {
 
-    __android_log_print(2, "Signal amplitud", "Amplitud: %f", amplitude);
     if (!isWaveOn_.load()) phase_ = 0;
 
     for (int i = 0; i < numFrames; i++) {
 
         if (isWaveOn_.load()) {
 
-            // Calculates the next sample value for the sine wave.
+            // Calculato de la siguiente onda
             audioData[i] = (float) (sin(phase_) * amplitude);
 
-            // Increments the phase, handling wrap around.
+            // incrementa la fse
             phase_ += phaseIncrement_;
             if (phase_ > TWO_PI) phase_ -= TWO_PI;
 
         } else {
-            // Outputs silence by setting sample value to zero.
             audioData[i] = 0;
         }
     }

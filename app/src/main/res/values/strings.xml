@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WaveMaker</string>
+    <string name="app_name">Sound testing</string>
     <string name="str_silence">Silencio</string>
 
     <!-- Menú -->

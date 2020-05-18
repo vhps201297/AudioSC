@@ -1,10 +1,7 @@
-package com.example.wavemaker.TestVoice;
+package com.example.soundtesting.TestVoice;
 
-import android.media.AudioRecord;
-
-import com.example.wavemaker.fft.Complex;
-import com.example.wavemaker.interfaces.IVoiceTest;
-import com.github.mikephil.charting.charts.LineChart;
+import com.example.soundtesting.fft.Complex;
+import com.example.soundtesting.interfaces.IVoiceTest;
 
 public class VoicePresenter implements IVoiceTest.Presenter {
 
@@ -16,13 +13,11 @@ public class VoicePresenter implements IVoiceTest.Presenter {
         interactor = new VoiceInteractor(this);
     }
 
-    @Override
-    public void initRecording() {
-        interactor.recording();
-    }
+
 
     @Override
     public void stopRecording() {
+        System.out.println("StopRecording...presenter");
         interactor.stopRecording();
         view.showRecordingStop();
     }
@@ -34,8 +29,13 @@ public class VoicePresenter implements IVoiceTest.Presenter {
     }
 
     @Override
+    public void listenerRecording(IVoiceTest.Listener listener) {
+        interactor.recording(listener);
+    }
+
+    @Override
     public void updateViewRecording(Complex[] y) {
-        view.updateGraphicOnFrequency(y);
+        //view.updateGraphicOnFrequency(y);
     }
 
     @Override
@@ -46,5 +46,15 @@ public class VoicePresenter implements IVoiceTest.Presenter {
     @Override
     public void errorMessage(String errorMessage) {
 
+    }
+
+    @Override
+    public void addPoint(double x, double y) {
+        //view.addGraphicPoint(x,y);
+    }
+
+    @Override
+    public void updateViewRecording() {
+        view.updateGraphicOnFrequency();
     }
 }

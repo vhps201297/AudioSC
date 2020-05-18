@@ -1,13 +1,12 @@
-package com.example.wavemaker.TestAudio;
+package com.example.soundtesting.TestAudio;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.wavemaker.R;
+import com.example.soundtesting.R;
 
 public class InfoActivity extends AppCompatActivity {
 

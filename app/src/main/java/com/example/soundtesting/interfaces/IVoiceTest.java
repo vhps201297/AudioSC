@@ -1,36 +1,38 @@
-package com.example.wavemaker.interfaces;
+package com.example.soundtesting.interfaces;
 
-import android.media.AudioRecord;
-
-import com.example.wavemaker.fft.Complex;
-import com.github.mikephil.charting.charts.LineChart;
+import com.example.soundtesting.fft.Complex;
 
 public interface IVoiceTest {
 
     interface View{
         void showRecordingStart();
         void showRecordingStop();
-        void updateGraphicOnTime();
-        void updateGraphicOnFrequency(Complex[] y);
+        void updateGraphicOnFrequency();
         void showError(String errorMessage);
     }
 
     interface Presenter{
         // presenter to interactor
-        void initRecording();
         void stopRecording();
         boolean isRecording();
+        void listenerRecording(Listener listener);
 
         // presenter to view
         void updateViewRecording(Complex[] y);
         void updateViewStop();
         void errorMessage(String errorMessage);
+        void addPoint(double x, double y);
+        void updateViewRecording();
     }
 
     interface Interactor{
-        void recording();
+        void recording(Listener listener);
         void stopRecording();
         boolean isRecording();
+    }
+
+    interface Listener{
+        void recording(double x, double y);
     }
 
 }

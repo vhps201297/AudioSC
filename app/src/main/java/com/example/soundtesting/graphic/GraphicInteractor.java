@@ -1,16 +1,14 @@
-package com.example.wavemaker.graphic;
+package com.example.soundtesting.graphic;
 
 import android.graphics.Color;
 
-import com.example.wavemaker.fft.Complex;
+import com.example.soundtesting.fft.Complex;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.DataSet;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
@@ -22,22 +20,23 @@ import java.util.List;
 public class GraphicInteractor {
 
     private static LineChart chart;
-    private static ArrayList<Entry> entries = new ArrayList<>();
+    private static ArrayList<Entry> entries;
     private static int[] colors = {Color.rgb(0, 255, 0), Color.rgb(255, 0, 0)};
     public GraphicInteractor(){
 
     }
 
     public static void init(LineChart chart){
+        entries = new ArrayList<>();
         GraphicInteractor.chart = chart;
         GraphicInteractor.chart.setDrawGridBackground(true);
         GraphicInteractor.chart.getDescription().setEnabled(false);
         LineData data = new LineData();
         data.setValueTextColor(Color.BLUE);
         GraphicInteractor.chart.setData(data);
-
-        //GraphicInteractor.chart.setDragEnabled(true);
-        //GraphicInteractor.chart.setScaleEnabled(true);
+        GraphicInteractor.chart.getData().addDataSet(createDataSet());
+        GraphicInteractor.chart.setDragEnabled(true);
+        GraphicInteractor.chart.setScaleEnabled(true);
     }
 
     public static void setXAxis(float xMin, float xMax){
@@ -52,6 +51,54 @@ public class GraphicInteractor {
         //xl.setDrawGridLines(false);
         xl.enableGridDashedLine(10f, 10f, 0f);
         xl.setEnabled(true);
+
+    }
+
+
+    public static void setXAxisRealtime(){
+        XAxis xl = chart.getXAxis();
+        //xl.setTextColor(Color.GREEN);
+        xl.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xl.setDrawGridLines(false);
+        //xl.setAvoidFirstLastClipping(true);
+        xl.setEnabled(true);
+        chart.setVisibleXRangeMaximum(5000);
+    }
+
+    public static void addAndpdateStream(double x, double y){
+        LineData data = chart.getData();
+        data.addEntry(new Entry((float)x,(float)y),0);
+        data.notifyDataChanged();
+        chart.notifyDataSetChanged();
+        chart.setVisibleXRangeMaximum(10000);
+        chart.moveViewToX(chart.getData().getEntryCount());
+
+    }
+
+    public static void updateEntries(){
+        chart.getData().notifyDataChanged();
+        chart.notifyDataSetChanged();
+        chart.moveViewToX(chart.getData().getEntryCount());
+        chart.setVisibleXRangeMaximum(10000);
+    }
+
+    public static void addEntry(double x, double y){
+        LineData data = chart.getData();
+
+        if (data != null){
+            System.out.println("Agregand data");
+            LineDataSet set = createDataSet();
+            data.addDataSet(set);
+            data.addEntry(new Entry((float)x,(float)y),0);
+            //data.notifyDataChanged();
+            //chart.notifyDataSetChanged();
+        }else {
+            System.out.println("agregando x:" + x+ " y:" + y);
+            data.addEntry(new Entry((float)x,(float)y),0);
+            //data.notifyDataChanged();
+            //chart.notifyDataSetChanged();
+        }
+
 
     }
 
@@ -96,6 +143,20 @@ public class GraphicInteractor {
         }else{
             System.out.println("...Data vacía");
         }
+    }
+
+    public static LineDataSet createDataSet(){
+        LineDataSet set = new LineDataSet(entries, "Dynamic Data");
+        set.setAxisDependency(YAxis.AxisDependency.LEFT);
+        set.setColor(ColorTemplate.getHoloBlue());
+        set.setLineWidth(2f);
+        //set.setFillAlpha(65);
+        set.setFillColor(ColorTemplate.getHoloBlue());
+        //set.setHighLightColor(Color.rgb(244, 117, 117));
+        //set.setValueTextColor(Color.WHITE);
+        set.setValueTextSize(9f);
+        //set.setDrawValues(false);
+        return set;
     }
 
     public static LineDataSet setDataSet(Complex[] g){
@@ -144,4 +205,5 @@ public class GraphicInteractor {
         chart.invalidate();
 
     }
+
 }

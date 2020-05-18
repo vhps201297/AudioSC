@@ -1,4 +1,4 @@
-package com.example.wavemaker.TestVoice;
+package com.example.soundtesting.TestVoice;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,29 +6,21 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import android.media.AudioFormat;
 import android.media.AudioRecord;
-import android.media.MediaPlayer;
-import android.media.MediaRecorder;
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
-import android.service.voice.VoiceInteractionService;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
-import com.example.wavemaker.R;
-import com.example.wavemaker.fft.Complex;
-import com.example.wavemaker.graphic.GraphicInteractor;
-import com.example.wavemaker.interfaces.IVoiceTest;
+import com.example.soundtesting.R;
+import com.example.soundtesting.graphic.GraphicInteractor;
+import com.example.soundtesting.interfaces.IVoiceTest;
 import com.github.mikephil.charting.charts.LineChart;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
-import java.security.Permission;
 
 public class VoiceMainActivity extends AppCompatActivity implements IVoiceTest.View {
 
@@ -39,7 +31,8 @@ public class VoiceMainActivity extends AppCompatActivity implements IVoiceTest.V
     int bytesPerElement = 2; // 2 bytes in 16bit format@Override
     private AudioRecord audioRecord;
     private int REQUEST_CODE = 5;
-    private Drawable iconStart, iconStop;
+    private Handler handler = new Handler();
+    private Thread thread;
 
     private VoicePresenter presenter;
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,29 +41,31 @@ public class VoiceMainActivity extends AppCompatActivity implements IVoiceTest.V
         btnStartStop = findViewById(R.id.btn_iniciar);
         btnRestart = findViewById(R.id.btn_reiniciar);
         chartOnFrequency = findViewById(R.id.chart_frequency);
-        iconStart = getBaseContext().getDrawable(R.drawable.ic_start);
-        iconStop = getBaseContext().getDrawable(R.drawable.ic_pause);
-        btnStartStop.setCompoundDrawablesWithIntrinsicBounds( iconStart,null,null,null);
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO},REQUEST_CODE);
         }
 
-        //GraphicInteractor.init(chartOnTime);
-        GraphicInteractor.init(chartOnFrequency);
+        initializeGraphic();
         presenter = new VoicePresenter(this);
-
-        //GraphicInteractor.setXAxis();
-        GraphicInteractor.setYAxis(0,3000);
-
-
 
     }
 
+    public void initializeGraphic(){
+        //GraphicInteractor.setXAxis();
+        GraphicInteractor.init(chartOnFrequency);
+        GraphicInteractor.setXAxisRealtime();
+        GraphicInteractor.setYAxis(-3000,3000);
+    }
 
     @Override
     protected void onPause() {
-        presenter.stopRecording();
+        if (presenter.isRecording()){
+            presenter.stopRecording();
+        }
+        if (thread != null)
+            thread.interrupt();
+
         super.onPause();
     }
 
@@ -78,50 +73,63 @@ public class VoiceMainActivity extends AppCompatActivity implements IVoiceTest.V
 
         if (!presenter.isRecording()){
             showRecordingStart();
-            presenter.initRecording();
+            updateGraphicOnFrequency();
         } else {
             presenter.stopRecording();
+
         }
     }
 
     public void onClickRestart(View view) {
-        presenter.stopRecording();
-        showRecordingStart();
-        //presenter.initRecording();
+        if (presenter.isRecording()){
+            presenter.stopRecording();
+        }else {
+            Toast.makeText(this,"No se está grabando", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void showRecordingStart() {
         btnStartStop.setText(R.string.str_detener);
-        btnStartStop.setCompoundDrawablesWithIntrinsicBounds( iconStop,null,null,null);
+        GraphicInteractor.init(chartOnFrequency);
+        GraphicInteractor.setXAxisRealtime();
+        GraphicInteractor.setYAxis(-3000,3000);
     }
 
     @Override
     public void showRecordingStop() {
+        if (thread != null)
+            thread.interrupt();
         btnStartStop.setText(R.string.str_iniciar);
-        btnStartStop.setCompoundDrawablesWithIntrinsicBounds( iconStart,null,null,null);
 
     }
 
-    @Override
-    public void updateGraphicOnTime() {
-
-    }
 
     @Override
-    public void updateGraphicOnFrequency(final Complex[] y) {
-        new Thread(new Runnable() {
+    public void updateGraphicOnFrequency() {
+
+        if (thread != null)
+            thread.interrupt();
+
+        presenter.listenerRecording(new IVoiceTest.Listener() {
             @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        System.out.println("UpdateGraphicFreq");
-                        GraphicInteractor.updateDateSet(y);
-                    }
-                });
+            public void recording(final double x, final double y) {
+
+                try {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.println("update...");
+                            GraphicInteractor.addAndpdateStream(x,y);
+                        }
+                    });
+                    Thread.sleep(25);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-        }).start();
+        });
+
 
 
     }
@@ -149,4 +157,5 @@ public class VoiceMainActivity extends AppCompatActivity implements IVoiceTest.V
             }
         }
     }
+
 }

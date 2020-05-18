@@ -1,4 +1,4 @@
-package com.example.wavemaker;
+package com.example.soundtesting;
 
 import org.junit.Test;
 

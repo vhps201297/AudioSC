@@ -1,4 +1,4 @@
-package com.example.wavemaker.TestAudio;
+package com.example.soundtesting.TestAudio;
 
 import java.io.Serializable;
 
