@@ -28,7 +28,6 @@ public interface IVoiceTest {
     }
 
     interface Interactor{
-        void setCharts(LineChart chartTime, LineChart chartFrequency);
         void recording();
         void stopRecording();
         boolean isRecording();

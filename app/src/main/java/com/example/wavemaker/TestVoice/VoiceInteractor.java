@@ -27,10 +27,6 @@ public class VoiceInteractor implements IVoiceTest.Interactor {
         fft = new FFT(bufferedSize);
     }
 
-    @Override
-    public void setCharts(LineChart chartTime, LineChart chartFrequency) {
-
-    }
 
     @Override
     public void recording() {

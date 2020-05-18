@@ -34,7 +34,7 @@ public class VoiceMainActivity extends AppCompatActivity implements IVoiceTest.V
 
     private Button btnStartStop, btnRestart;
     private AudioRecord recorder;
-    private LineChart chartOnTime, chartOnFrequency;
+    private LineChart  chartOnFrequency;
     int bufferElements2Rec = 1024; // want to play 2048 (2K) since 2 bytes we use only 1024
     int bytesPerElement = 2; // 2 bytes in 16bit format@Override
     private AudioRecord audioRecord;
@@ -47,7 +47,6 @@ public class VoiceMainActivity extends AppCompatActivity implements IVoiceTest.V
         setContentView(R.layout.activity_voice_main);
         btnStartStop = findViewById(R.id.btn_iniciar);
         btnRestart = findViewById(R.id.btn_reiniciar);
-        chartOnTime = findViewById(R.id.chart_time);
         chartOnFrequency = findViewById(R.id.chart_frequency);
         iconStart = getBaseContext().getDrawable(R.drawable.ic_start);
         iconStop = getBaseContext().getDrawable(R.drawable.ic_pause);
@@ -59,13 +58,20 @@ public class VoiceMainActivity extends AppCompatActivity implements IVoiceTest.V
 
         //GraphicInteractor.init(chartOnTime);
         GraphicInteractor.init(chartOnFrequency);
-        presenter = new VoicePresenter(this, chartOnTime, chartOnFrequency);
+        presenter = new VoicePresenter(this);
 
         //GraphicInteractor.setXAxis();
-        GraphicInteractor.setYAxis(-3000000,30000000);
+        GraphicInteractor.setYAxis(0,3000);
 
 
 
+    }
+
+
+    @Override
+    protected void onPause() {
+        presenter.stopRecording();
+        super.onPause();
     }
 
     public void onClickStartStop(View view) {

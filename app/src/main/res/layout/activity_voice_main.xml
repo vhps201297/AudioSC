@@ -6,19 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".TestVoice.VoiceMainActivity">
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/chart_time"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart_frequency"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_iniciar"
-        app:layout_constraintTop_toBottomOf="@+id/guideline2" />
+        android:layout_marginBottom="48dp"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <Button
@@ -42,11 +37,6 @@
         android:theme="@style/AppTheme.BlueButtonMaterial"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.45" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

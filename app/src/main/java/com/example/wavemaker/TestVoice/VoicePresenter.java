@@ -11,10 +11,9 @@ public class VoicePresenter implements IVoiceTest.Presenter {
     private IVoiceTest.View view;
     private IVoiceTest.Interactor interactor;
 
-    VoicePresenter(IVoiceTest.View view, LineChart chartTime, LineChart chartFrequency){
+    VoicePresenter(IVoiceTest.View view){
         this.view = view;
         interactor = new VoiceInteractor(this);
-        interactor.setCharts(chartTime, chartFrequency);
     }
 
     @Override
