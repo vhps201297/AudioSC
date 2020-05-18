@@ -28,5 +28,16 @@
     <string name="str_aceptar">Aceptar</string>
     <string name="str_msj_limite_minimo">No se puede disminuir la frecuencia menores a los 20[HZ] que el oído puede escuchar.</string>
     <string name="str_msj_limite_maximo">No se puede aumentar la frecuencia mayores a los 20000[HZ] que el oído puede escuchar.</string>
+    <string name="str_instruccion_audio"><b>Para bajas frecuencias:</b>
+<p>Si escucha la frecuencia inicial presionar el botón "Puedo oírlo" cada vez que lo presione la frecuencia disminuirá (no más allá de los 20 [Hz])
+Presionar el botón "Listo" en la última frecuencia escuchada. Por ejemplo, si en los 50 [Hz] aun escuchaba al presionar el botón "Puedo oírlo” bajará a 40 [Hz], y si en 40 [Hz] ya no escucha nada presionar el botón "No puedo oírlo" para regresar a la frecuencia anterior, la cual es la mínima que escucha y como ya es la frecuencia mínima presionar el botón "Listo" para continuar con las frecuencias altas. Si no escucha la frecuencia inicial, presionar el botón "No puedo oírlo" hasta que llegue a una frecuencia que pueda escuchar, posteriormente presionar el botón "Listo" y esa será la mínima frecuencia que puede escuchar.</p>
+\n\n<b>Para altas frecuencias:</b>
+<ṕ>Si escucha la frecuencia inicial presione el botón "Puedo oírlo" repetidas veces hasta que deje de escuchar la frecuencia. Por ejemplo, si está en la frecuencia 14,000 Hz y presiona el botón "Puedo oírlo" esta aumentará a 14,200 Hz pero si esa frecuencia ya no la escucha presionar el botón "No puedo oírlo" regresará a los 14,000 Hz la cual será la frecuencia más alta que puede escuchar, posteriormente presionar el botón “Listo”.
+    Si no escucha la frecuencia inicial presionar el botón "No puedo oírlo" y la frecuencia comenzará a disminuir, presionar el botón hasta que llegue a una frecuencia que pueda escuchar y después presionar el botón de "Listo".</ṕ></string>
+
+    <!--Prueba de voz-->
+    <string name="str_iniciar">Iniciar</string>
+    <string name="str_detener">Detener</string>
+    <string name="str_reiniciar">Reiniciar</string>
 
 </resources>

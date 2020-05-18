@@ -2,6 +2,7 @@ package com.example.wavemaker.graphic;
 
 import android.graphics.Color;
 
+import com.example.wavemaker.fft.Complex;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -10,6 +11,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,7 @@ public class GraphicInteractor {
         LineData data = new LineData();
         data.setValueTextColor(Color.BLUE);
         GraphicInteractor.chart.setData(data);
+
         //GraphicInteractor.chart.setDragEnabled(true);
         //GraphicInteractor.chart.setScaleEnabled(true);
     }
@@ -49,6 +52,7 @@ public class GraphicInteractor {
         //xl.setDrawGridLines(false);
         xl.enableGridDashedLine(10f, 10f, 0f);
         xl.setEnabled(true);
+
     }
 
     public static void setYAxis(float yMin, float yMax){
@@ -62,6 +66,60 @@ public class GraphicInteractor {
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
         chart.getAxisRight().setEnabled(false);
 
+    }
+
+    public void addEntry(Complex g){
+        LineData data = chart.getData();
+        if (data != null){
+            data.addEntry(new Entry((float)(g.re()),(float)(g.im())), 0);
+            data.notifyDataChanged();
+            chart.notifyDataSetChanged();
+        } else{
+            Complex[] y = new Complex[]{g};
+            LineDataSet set = setDataSet(y);
+            data.addDataSet(set);
+            data.notifyDataChanged();
+            chart.notifyDataSetChanged();
+        }
+    }
+
+
+    public static void updateDateSet(Complex[] g){
+        LineData data = chart.getData();
+        if (data != null){
+            System.out.println("...updateDataSet");
+            LineDataSet set = setDataSet(g);
+            data.addDataSet(set);
+            data.notifyDataChanged();
+            chart.moveViewToX(GraphicInteractor.chart.getData().getEntryCount());
+            chart.notifyDataSetChanged();
+        }else{
+            System.out.println("...Data vacía");
+        }
+    }
+
+    public static LineDataSet setDataSet(Complex[] g){
+        ArrayList<Entry> entries = new ArrayList<>();
+        if (g != null){
+            for (int i = 0; i < g.length;i++){
+                entries.add(new Entry((float)g[i].re(),(float) g[i].im()));
+            }
+        } else {
+            entries = null;
+        }
+        LineDataSet set = new LineDataSet(entries, "Dynamic Data");
+        set.setAxisDependency(YAxis.AxisDependency.LEFT);
+        set.setColor(ColorTemplate.getHoloBlue());
+        set.setCircleColor(Color.WHITE);
+        set.setLineWidth(2f);
+        set.setCircleRadius(4f);
+        set.setFillAlpha(65);
+        set.setFillColor(ColorTemplate.getHoloBlue());
+        set.setHighLightColor(Color.rgb(244, 117, 117));
+        set.setValueTextColor(Color.WHITE);
+        set.setValueTextSize(9f);
+        set.setDrawValues(false);
+        return set;
     }
 
     public static void addDataSet(List<Entry> entries, String label){
